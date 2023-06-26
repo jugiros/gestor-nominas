@@ -27,7 +27,9 @@
         />
       </div>
       <br />
-      <button class="ui primary button" type="submit">Registrar</button>
+      <button class="ui primary button" type="submit" :class="{ loading }">
+        Registrar
+      </button>
       <p @click="changeForm">Iniciar sesión</p>
     </form>
   </div>
@@ -36,6 +38,7 @@
 <script>
 import * as Yup from "yup";
 import { ref } from "vue";
+import { auth } from "@/utils/firebase";
 
 export default {
   name: "Register",
@@ -45,6 +48,10 @@ export default {
     },
   },
   setup() {
+    let formData = {};
+    let formError = ref({});
+    let loading = ref(false);
+
     const schemaForm = Yup.object().shape({
       email: Yup.string().email(true).required(true),
       password: Yup.string().required(true),
@@ -52,14 +59,25 @@ export default {
         .required(true)
         .oneOf([Yup.ref("password")], true),
     });
-    let formData = {};
-    let formError = ref({});
+
     const onRegister = async () => {
       console.log("Register", formData);
       formError.value = {};
+      loading.value = true;
       try {
         await schemaForm.validate(formData, { abortEarly: false });
         console.log("Todo OK");
+        try {
+          const { email, password } = formData;
+          console.log(formData);
+          await auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((res) => {
+              console.log(res);
+            });
+        } catch (e) {
+          console.log(e);
+        }
       } catch (e) {
         console.log(e);
         e.inner.forEach((error) => {
@@ -67,11 +85,13 @@ export default {
           formError.value[error.path] = error.message;
         });
       }
+      loading.value = false;
     };
     return {
       formData,
       onRegister,
       formError,
+      loading,
     };
   },
 };
