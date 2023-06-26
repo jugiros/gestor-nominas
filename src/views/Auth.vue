@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Login from "@/Auth/Login.vue";
-import Register from "@/Auth/Register.vue";
+import Login from "@/components/Auth/Login.vue";
+import Register from "@/components/Auth/Register.vue";
 import { ref } from "vue";
 
 export default {

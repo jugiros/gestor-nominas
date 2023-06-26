@@ -14,8 +14,13 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'home',
+    name: 'Payrolls',
     component: loadComponent("Payrolls")
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'error404',
+    component: loadComponent('Error404')
   }
 ]
 
