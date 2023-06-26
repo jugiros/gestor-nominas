@@ -2,7 +2,7 @@
   <div class="ui container">
     <div class="ui center">
       <img src="../assets/nomina.png">
-      <h1>Error404</h1>
+      <h1>Error 404</h1>
       <div class="return-home"><router-link to="/">IR AL INICIO</router-link></div>
     </div>
   </div>
@@ -18,6 +18,7 @@ export default {
 .ui.container {
   .ui.center {
     text-align: center;
+    margin-top: 20%;
   }
   h1 {
     color: #e22e2e;
@@ -30,7 +31,6 @@ export default {
     font-weight: bold;
   }
   img {
-    margin-top: 20%;
     width: 40px;
   }
   .return-home {
