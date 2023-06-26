@@ -1,6 +1,5 @@
 <template>
   <div class="auth">
-    <h1>Estamos en AUTH</h1>
     <login v-if="showLogin" :change-form="chageForm"></login>
     <register v-else :change-form="chageForm"></register>
   </div>
@@ -15,7 +14,7 @@ export default {
   name: "Auth",
   components: { Register, Login },
   setup() {
-    let showLogin = ref(true);
+    let showLogin = ref(false);
 
     const chageForm = () => {
       showLogin.value = !showLogin.value;
@@ -23,10 +22,24 @@ export default {
 
     return {
       showLogin,
-      chageForm
+      chageForm,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.auth {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(4, 78, 157);
+  background: linear-gradient(
+    0deg,
+    rgba(4, 78, 157, 1) 0%,
+    rgba(0, 174, 255, 1) 100%
+  );
+}
+</style>
